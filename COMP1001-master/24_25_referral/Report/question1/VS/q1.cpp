@@ -18,10 +18,9 @@ void init();
 void q1();
 
 
-#define N 256 //input size
-float Y[N], X[N],A[N*N],test[N];
+#define N 128 //input size
+float sum[N][N][N],A[N][N][N],C[N][N];
 
-#define TIMES_TO_RUN 1 //how many times the function will run. If the ex.time you get is lower than 2 seconds, then increase this value accordingly
 
 int main() {
 
@@ -32,47 +31,52 @@ int main() {
 
 	start_1 = clock(); //start the timer 
 
-	for (int i = 0; i < TIMES_TO_RUN; i++)//this loop is needed to get an accurate ex.time value
-		q1();
+	q1(); //main routine
 		
 
 	end_1 = clock(); //end the timer 
 
 	printf(" clock() method: %ldms\n", (end_1 - start_1) / (CLOCKS_PER_SEC / 1000));//print the ex.time
-
-	printf("\n The value of the 5th element is %f \n",Y[4]);
-		
+	
 	system("pause"); //this command does not let the output window to close
 
 	return 0; //normally, by returning zero, we mean that the program ended successfully. 
 }
 
 
+
 void init() {
 
-	float e = 0.1234f, p = 0.7264f, r = 0.11f;//if you do not specify the 'f' after 0.0, then double precision data type is assumed (not float which single precision). 
-
-	//MVM
-	for (unsigned int i = 0; i < N; i++)
-		for (unsigned int j = 0; j < N; j++)
-			A[N*i+j] = ((i - j) % 9) + p;
-
-	for (unsigned int j = 0; j < N; j++) {
-		Y[j] = 0.0f; 
-		test[j] = 0.0f;
-		X[j] = (j % 7) + r;
+float e = 0.121f, p = 0.721f;//if you do not specify the 'f' after 0.0, then double precision data type is assumed (not float which single precision). 
+unsigned int i,j,k;
+	
+	for ( i = 0; i < N; i++) { 
+		for (j = 0; j < N; j++) {
+			C[i][j] = (j % 9) + p; 
+		}
 	}
+	   
+	for ( i = 0; i < N; i++) { 
+		for (j = 0; j < N; j++) {
+                  for (k = 0; k < N; k++) {
+			sum[i][j][k] = 0.0f; 
+			A[i][j][k]= ( ((i+j)%99) +e);
+		}
+		}
+	      }
 }
 
 
 
 void q1() {
 
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			Y[i] += A[N*i+j] * X[j];
-		}
-	}
+int r,q,s,p;
+
+  for (r = 0; r < N; r++)
+    for (q = 0; q < N; q++)  
+      for (s = 0; s < N; s++)
+       for (p = 0; p < N; p++)  
+	  sum[r][q][p] = sum[r][q][p] + A[r][q][s] * C[s][p];
 	
 
 }
