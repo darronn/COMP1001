@@ -11,8 +11,8 @@ in the current form would lead to wrong results.
 Rearranging the formula becomes:
 (50xd + 50yc)/cd.
 !
-try to apply integer division in x/c and y/d, the result will be zero as 0<quotent<1. however, using the above formula 
-this problem is eliminated as the quotent is percentage not 0<quotent<1
+;try to apply integer division in x/c and y/d, the result will be zero as 0<quotent<1. however, using the above formula 
+;this problem is eliminated as the quotent is percentage not 0<quotent<1
 
 .data ; data segment
 	; define your variables here
@@ -57,7 +57,7 @@ main PROC ; main procedure
 	mov eax, sumCw
 	add eax, sumTest ; eax has the total sum
 	; compute division
-	mov edx, 0
+	mov edx, 0 ; clear high part of divident
 	mov ecx, divisor
 	div ecx
 	mov quotient, eax
