@@ -11,7 +11,7 @@
 #include <windows.h> //this library is needed for pause() function
 #include <time.h> //this library is needed for clock() function
 #include <math.h> //this library is needed for abs()
-
+#include <omp.h> //this library is needed for the timer
 
 void init();
 void q1();
@@ -24,24 +24,29 @@ float A[N][N], B[N][N], C[N][N] ;
 int main() {
 
 	//define the timers measuring execution time
-	clock_t start_1, end_1; //ignore this for  now
+	double start_1, end_1; 
+	//clock_t start_1, end_1; //ignore this for  now
 
 	init();//initialize the arrays
 
-	start_1 = clock(); //start the timer 
+	start_1 = omp_get_wtime(); //start the timer 
+	//start_1 = clock(); //start the timer 
 
 
 	q1(); //main routine
 		
 
-	end_1 = clock(); //end the timer 
+	end_1 = omp_get_wtime(); //end the timer 
+	//end_1 = clock(); //end the timer 
 
-	printf(" clock() method: %ldms\n", (end_1 - start_1) / (CLOCKS_PER_SEC / 1000));//print the ex.time
+	printf(" Time in seconds is %f\n", end_1 - start_1 );//print the ex.time
+	//printf(" clock() method: %ldms\n", (end_1 - start_1) / (CLOCKS_PER_SEC / 1000));//print the ex.time
 	
 	system("pause"); //this command does not let the output window to close
-
+	
 	return 0; //normally, by returning zero, we mean that the program ended successfully. 
 }
+
 
 
 void init() {
